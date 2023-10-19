@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Beats',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          
+        )
       ),
     );
   }
