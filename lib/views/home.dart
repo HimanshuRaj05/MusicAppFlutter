@@ -65,8 +65,9 @@ class Home extends StatelessWidget {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                            margin: EdgeInsets.only(bottom: 4),
-                            child: ListTile(
+                          margin: EdgeInsets.only(bottom: 4),
+                          child: Obx(
+                            () => ListTile(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -85,12 +86,21 @@ class Home extends StatelessWidget {
                                   size: 32,
                                 ),
                               ),
-                              trailing: Icon(
-                                Icons.play_arrow,
-                                color: whiteColor,
-                                size: 26,
-                              ),
-                            ));
+                              trailing: controller.playIndex.value == index &&
+                                      controller.isPlaying.value
+                                  ? const Icon(
+                                      Icons.play_arrow,
+                                      color: whiteColor,
+                                      size: 26,
+                                    )
+                                  : null,
+                              onTap: () {
+                                controller.playSong(
+                                    snapshot.data![index].uri, index);
+                              },
+                            ),
+                          ),
+                        );
                       }));
             }
           },
