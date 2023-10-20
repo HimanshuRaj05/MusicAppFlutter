@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/consts/text_style.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 import '../consts/colors.dart';
 
 class Player extends StatelessWidget {
-  const Player({super.key});
+  final SongModel data;
+  const Player({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +19,20 @@ class Player extends StatelessWidget {
           children: [
             Expanded(
                 child: Container(
+              height: 250,
+              width: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.red,
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.music_note),
+              child: QueryArtworkWidget(
+                id: data.id,
+                type: ArtworkType.AUDIO,
+                artworkHeight: double.infinity,
+                artworkWidth: double.infinity,
+                nullArtworkWidget: const Icon(Icons.music_note, size: 48, color: whiteColor),
+              ),
             )),
             SizedBox(
               height: 12,
