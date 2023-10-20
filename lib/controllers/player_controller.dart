@@ -47,7 +47,7 @@ class PlayerController extends GetxController {
       isPlaying(true);
       updatePosition();
     } on Exception catch (e) {
-      print(e.toString());
+     // print(e.toString());
     }
   }
 
