@@ -103,8 +103,8 @@ class Home extends StatelessWidget {
                                   transition: Transition.downToUp,
                                 );
 
-                                // controller.playSong(
-                                //     snapshot.data![index].uri, index);
+                                controller.playSong(
+                                    snapshot.data![index].uri, index);
                               },
                             ),
                           ),
