@@ -8,8 +8,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../consts/colors.dart';
 
 class Player extends StatelessWidget {
-  final SongModel data;
-  const Player({super.key, required this.data});
+  final List<SongModel>? data;
+  const Player({Key? key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class Player extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: QueryArtworkWidget(
-                id: data.id,
+                id: data![controller.playIndex.value].id,
                 type: ArtworkType.AUDIO,
                 artworkHeight: double.infinity,
                 artworkWidth: double.infinity,
@@ -53,7 +53,7 @@ class Player extends StatelessWidget {
                 ),
                 child: Column(children: [
                   Text(
-                    data.displayNameWOExt,
+                    data![controller.playIndex.value].displayNameWOExt,
                     style: ourStyle(
                       color: bgDarkColor,
                       size: 24,
@@ -63,7 +63,7 @@ class Player extends StatelessWidget {
                     height: 12,
                   ),
                   Text(
-                    data.artist.toString(),
+                    data![controller.playIndex.value].artist.toString(),
                     style: ourStyle(
                       color: bgDarkColor,
                       size: 20,
@@ -86,8 +86,14 @@ class Player extends StatelessWidget {
                                 thumbColor: sliderColor,
                                 activeColor: sliderColor,
                                 inactiveColor: bgColor,
-                                value: 0.0,
-                                onChanged: (newValue) {})),
+                                min: Duration(seconds: 0).inSeconds.toDouble(),
+                                max: controller.max.value,
+                                value: controller.value.value,
+                                onChanged: (newValue) {
+                                  controller.changeDurationToSeconds(
+                                      newValue.toInt());
+                                  newValue = newValue;
+                                })),
                         Text(
                           controller.duration.value,
                           style: ourStyle(
@@ -104,7 +110,11 @@ class Player extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.playSong(
+                              data![controller.playIndex.value].uri,
+                              controller.playIndex.value - 1);
+                        },
                         icon: Icon(
                           Icons.skip_previous_rounded,
                           size: 40,
@@ -140,7 +150,11 @@ class Player extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                             controller.playSong(
+                              data![controller.playIndex.value].uri,
+                              controller.playIndex.value + 1);
+                          },
                           icon: Icon(
                             Icons.skip_next_rounded,
                             size: 40,
