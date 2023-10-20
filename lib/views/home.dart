@@ -75,6 +75,8 @@ class Home extends StatelessWidget {
                               tileColor: bgColor,
                               title: Text(
                                   snapshot.data![index].displayNameWOExt,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                   style: ourStyle(size: 15)),
                               subtitle: Text("${snapshot.data![index].artist}",
                                   style: ourStyle(size: 12)),
